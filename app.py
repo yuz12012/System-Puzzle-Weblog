@@ -27,8 +27,29 @@ def index():
     rate = "No entries yet!"
     if all != 0:
         rate = str(success / all)
+    
+    types = ['local','remote']
+    newRates = {}
+    for x in types:
+        # Local success rate calculation
+        sql_local = """SELECT COUNT(*) FROM weblogs WHERE type = \'%s\';""" % x
+        cur.execute(sql_local)
+        local_all = cur.fetchone()[0]
+    
+        # Get number of all succesful requests
+        sql_success_local = """SELECT COUNT(*) FROM weblogs WHERE status LIKE \'2__\' and type = \'%s\';""" % x
+        cur.execute(sql_success_local)
+        success_local = cur.fetchone()[0]
+        
+        # Determine rate if there was at least one request
+        rateLocal = "No entries yet!"
+        if local_all != 0:
+            rateLocal = str(success_local / local_all)
+        newRates[x] = rateLocal
+     
 
-    return render_template('index.html', rate = rate)
+
+    return render_template('index.html', rate = rate, rate_local = newRates['local'], rate_remote = newRates['remote'] )
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='0.0.0.0')
