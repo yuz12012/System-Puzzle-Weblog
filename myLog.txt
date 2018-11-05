@@ -1,0 +1,3 @@
+can not find app.py for flaskapp service
+no need to mount volume to the same dir
+
