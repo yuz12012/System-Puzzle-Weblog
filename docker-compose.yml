@@ -43,7 +43,7 @@ services:
     depends_on:
       - rabbit
     ports:
-     - "80:5672"
+     - "82:5672"
   processing:
     build: processing/.
     env_file:

@@ -3,7 +3,7 @@ import pika
 import json
 import os
 import time
-from utils import parse_log, is_get_request
+from utilss import parse_log, is_get_request
 
 #Connect  to RabbitMQ
 credentials = pika.PlainCredentials(os.environ['RABBITMQ_DEFAULT_USER'], os.environ['RABBITMQ_DEFAULT_PASS'])
